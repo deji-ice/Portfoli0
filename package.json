@@ -7,7 +7,9 @@
     "build": "next build",
     "sitemap": "next-sitemap --config next-sitemap.config.js",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@types/node": "20.2.4",
@@ -32,11 +34,18 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/jest": "^30.0.0",
     "autoprefixer": "^10.4.14",
     "eslint-config-next": "15.3.5",
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
     "next-sitemap": "^4.1.3",
     "postcss": "^8.4.24",
     "tailwind-scrollbar": "^3.0.4",
-    "tailwindcss": "^3.3.2"
+    "tailwindcss": "^3.3.2",
+    "ts-jest": "^29.4.6",
+    "whatwg-fetch": "^3.6.20"
   }
 }

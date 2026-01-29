@@ -7,13 +7,22 @@ export interface SpotifyData {
     album: {
       name: string;
       artists: Array<{ name: string }>;
-      images: [{ url: string }];
+      images: Array<{ url: string; height: number; width: number }>;
     };
     external_urls: {
       spotify: string;
     };
   };
   currently_playing_type: string;
+}
+
+export interface SpotifyNowPlayingResponse {
+  isPlaying: boolean;
+  title?: string;
+  artist?: string;
+  album?: string;
+  albumImageUrl?: string;
+  songUrl?: string;
 }
 export interface LogoData {
   alt: string;

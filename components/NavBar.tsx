@@ -74,7 +74,7 @@ export default function NavBar() {
     <motion.nav
       initial={false}
       animate={navbar ? "open" : "closed"}
-      className={`w-full fixed z-40 top-6 transition-all duration-300 font-outfit
+      className={`w-full fixed z-40 top-0 transition-all duration-300 font-outfit
         ${
           scrolled
             ? "bg-slate-800/90 backdrop-blur-sm shadow-lg mt-0"

@@ -1,4 +1,4 @@
-import { SpotifyData } from '@/types/types';
+import { SpotifyData, SpotifyNowPlayingResponse } from '@/types/types';
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -8,31 +8,46 @@ const {
   SPOTIFY_REFRESH_TOKEN: refresh_token,
 } = process.env;
 
-if (!client_id || !client_secret || !refresh_token) {
-  throw new Error('Missing Spotify API credentials');
-}
-
-const token = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
+const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
 const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing`;
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 
+// In-memory cache for the access token
+let cachedToken: string | null = null;
+let cachedTokenExpiresAt: number = 0;
 
 const getAccessToken = async () => {
-  const res = await axios.post<{ access_token: string }>(
-    TOKEN_ENDPOINT,
-    new URLSearchParams({
-      grant_type: 'refresh_token',
-      refresh_token,
-    }).toString(),
-    {
-      headers: {
-        Authorization: `Basic ${token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    }
-  );
+  const now = Date.now();
 
-  return res.data.access_token;
+  // Return cached token if it's still valid (buffer of 60 seconds)
+  if (cachedToken && now < cachedTokenExpiresAt - 60000) {
+    return cachedToken;
+  }
+
+  try {
+    const response = await axios.post<{ access_token: string; expires_in: number }>(
+      TOKEN_ENDPOINT,
+      new URLSearchParams({
+        grant_type: 'refresh_token',
+        refresh_token: refresh_token!,
+      }).toString(),
+      {
+        headers: {
+          Authorization: `Basic ${basic}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
+    );
+
+    cachedToken = response.data.access_token;
+    // expires_in is usually 3600 seconds
+    cachedTokenExpiresAt = now + response.data.expires_in * 1000;
+
+    return cachedToken;
+  } catch (error) {
+    console.error('Error fetching access token:', error);
+    throw error;
+  }
 };
 
 export const getNowPlaying = async () => {
@@ -42,24 +57,30 @@ export const getNowPlaying = async () => {
     headers: {
       Authorization: `Bearer ${access_token}`,
     },
+    validateStatus: (status) => status < 500, // Handle 4xx manually
   });
 };
 
 export default async function spotify(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<SpotifyNowPlayingResponse | { error: string }>
 ) {
   if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return res.status(405).json({ isPlaying: false, error: 'Method not allowed' } as any);
+  }
+
+  if (!client_id || !client_secret || !refresh_token) {
+    console.error('Missing Spotify environment variables');
+    return res.status(500).json({ isPlaying: false, error: 'Missing configuration' } as any);
   }
 
   try {
     const response = await getNowPlaying();
-    
-    // Set cache headers once
+
+    // Set cache headers
     res.setHeader(
       'Cache-Control',
-      'public, s-maxage=180, stale-while-revalidate=90'
+      'public, s-maxage=30, stale-while-revalidate=15'
     );
 
     if (
@@ -72,31 +93,26 @@ export default async function spotify(
     }
 
     const { item } = response.data;
-    if (!item || !item.album || !item.album.images?.[0]) {
+    if (!item || !item.album || !item.album.images) {
       return res.status(200).json({ isPlaying: false });
     }
 
-    const data = {
+    // Get the largest image (usually the first one)
+    const albumImageUrl = item.album.images[0]?.url;
+
+    const data: SpotifyNowPlayingResponse = {
       isPlaying: response.data.is_playing,
       title: item.name,
       album: item.album.name,
-      artist: item.album.artists
-        .map((artist) => artist.name)
-        .join(', '),
-      albumImageUrl: item.album.images[0].url,
+      artist: item.album.artists.map((artist) => artist.name).join(', '),
+      albumImageUrl,
       songUrl: item.external_urls.spotify,
     };
 
     return res.status(200).json(data);
   } catch (error) {
     console.error('Spotify API error:', error);
-    res.setHeader(
-      'Cache-Control',
-      'public, s-maxage=60, stale-while-revalidate=30'
-    );
-    return res.status(500).json({
-      isPlaying: false,
-      error: 'Failed to fetch now playing data'
-    });
+    // Return isPlaying: false instead of 500 to avoid breaking the UI completely
+    return res.status(200).json({ isPlaying: false });
   }
 }

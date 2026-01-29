@@ -102,6 +102,8 @@ export const metadata = {
   },
 };
 
+import Providers from "./providers";
+
 export default function RootLayout({
   children,
 }: {
@@ -128,12 +130,14 @@ export default function RootLayout({
       </Script>
 
       <body className="antialiased overflow-x-hidden bg-[#ebebf3]">
-        <SVGLoader />
-        <NowPlaying />
-        <NavBar />
-        <SmoothScrolling>
-          <main className="relative">{children}</main>
-        </SmoothScrolling>
+        <Providers>
+          <SVGLoader />
+          <NowPlaying />
+          <NavBar />
+          <SmoothScrolling>
+            <main className="relative">{children}</main>
+          </SmoothScrolling>
+        </Providers>
       </body>
     </html>
   );
