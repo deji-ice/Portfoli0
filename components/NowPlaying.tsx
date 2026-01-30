@@ -36,10 +36,10 @@ const NowPlayingContent = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 50 }}
           transition={{ duration: 0.5, type: 'spring' }}
-          className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-2"
+          className="fixed bottom-4 right-4 z-50 flex flex-col items-end font-outfit gap-2"
         >
           <div 
-            className="flex items-center gap-4 bg-slate-900/90 backdrop-blur-md p-3 rounded-xl border border-white/10 shadow-2xl hover:shadow-green-500/20 transition-shadow duration-300 max-w-[90vw] md:max-w-sm cursor-pointer group"
+            className="flex items-center gap-4 bg-green-100/20 backdrop-blur-[6px] p-3 rounded-xl border border-white/10 shadow-2xl hover:shadow-green-500/20 transition-shadow duration-300 max-w-[90vw] md:max-w-sm cursor-pointer group"
             onClick={() => setIsExpanded(!isExpanded)}
           >
             {/* Album Art */}
@@ -62,13 +62,13 @@ const NowPlayingContent = () => {
                 href={data.songUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white font-semibold text-sm md:text-base truncate hover:text-green-400 transition-colors flex items-center gap-2"
+                className="text-slate-900 font-semibold text-sm md:text-base truncate hover:text-green-400 transition-colors flex items-center gap-2"
                 onClick={(e) => e.stopPropagation()}
               >
                 {SiSpotify({ className: "text-[#1DB954] flex-shrink-0" })}
                 <span className="truncate">{data.title}</span>
               </a>
-              <p className="text-gray-400 text-xs md:text-sm truncate">
+              <p className="text-gray-700 text-xs md:text-sm truncate">
                 {data.artist}
               </p>
               {isExpanded && (
@@ -83,21 +83,21 @@ const NowPlayingContent = () => {
             </div>
             
             {/* Visualizer / Playing Indicator */}
-            <div className="flex gap-[2px] h-3 items-end ml-2">
+            <div className="flex gap-[2px] h-5 items-end ml-2">
               <motion.div 
                 animate={{ height: [4, 12, 4] }} 
                 transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-                className="w-1 bg-green-500 rounded-t-sm" 
+                className="w-1 bg-green-500 rounded-t-sm rounded-b-sm" 
               />
               <motion.div 
                 animate={{ height: [10, 4, 10] }} 
                 transition={{ repeat: Infinity, duration: 1.2, ease: "linear" }}
-                className="w-1 bg-green-500 rounded-t-sm" 
+                className="w-1 bg-green-500 rounded-t-sm rounded-b-sm" 
               />
               <motion.div 
                 animate={{ height: [6, 10, 6] }} 
                 transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
-                className="w-1 bg-green-500 rounded-t-sm" 
+                className="w-1 bg-green-500 rounded-t-sm rounded-b-sm" 
               />
             </div>
           </div>

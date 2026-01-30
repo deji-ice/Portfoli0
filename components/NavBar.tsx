@@ -77,7 +77,7 @@ export default function NavBar() {
       className={`w-full fixed z-40 top-0 transition-all duration-300 font-outfit
         ${
           scrolled
-            ? "bg-slate-800/90 backdrop-blur-sm shadow-lg mt-0"
+            ? "bg-slate-800/95 backdrop-blur-sm shadow-lg mt-0"
             : "bg-slate-800"
         }
         ${navbar ? "h-screen md:h-auto" : ""}`}
