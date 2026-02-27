@@ -240,9 +240,21 @@ export const projects: Project[] = [
 export const experiences: JobExperience[] = [
   {
     occupation: "Frontend Engineer",
+    companyName: "GEN",
+    dateStart: "10/2025",
+    dateEnd: "Present",
+    responsibilities: [
+      `Contributed to developing the Welsly investment dashboard (200+ active users) and Wyrr merchant app, implementing features for portfolio management, stock tracking, and merchant operations while upgrading the dashboard from V1 to V2 with 30% performance improvement.`,
+      `Developed responsive marketing websites for 3 flagship products (Welsly, Gen Financial, Wyrr) using web standards, improving page load performance by 35% and enhancing SEO visibility.`,
+      `Collaborated with cross-functional teams in agile sprints, working closely with product designers and engineers to deliver features and optimize UI/UX implementation.`,
+      `Built 25+ reusable React components aligned with the design system, reducing feature development time by 40% and ensuring UI consistency across applications.`,
+    ],
+  },
+  {
+    occupation: "Frontend Engineer",
     companyName: "Afren.ai",
     dateStart: "04/2025",
-    dateEnd: "Till Date",
+    dateEnd: "08/2025",
     responsibilities: [
       `Integrated AI-driven matchmaking features into the frontend platform, improving recommendation accuracy and enhancing customer satisfaction.`,
       `Implemented secure authentication systems and protected route logic to ensure user privacy and platform security.`,
