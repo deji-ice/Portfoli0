@@ -8,7 +8,6 @@ export const contentType = "image/png";
 
 export default async function Image() {
   const fonts = await loadFonts();
-  const techStack = ["React", "TypeScript", "Next.js", "Web3"];
 
   return new ImageResponse(
     (
@@ -19,7 +18,7 @@ export default async function Image() {
           width: "100%",
           height: "100%",
           backgroundColor: brand.bg,
-          padding: "60px 80px",
+          padding: "70px 80px",
           fontFamily: "Outfit",
           position: "relative",
           overflow: "hidden",
@@ -54,48 +53,18 @@ export default async function Image() {
           A
         </div>
 
-        {/* Label */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              width: "8px",
-              height: "8px",
-              borderRadius: "50%",
-              backgroundColor: brand.accent,
-            }}
-          />
-          <span
-            style={{
-              fontSize: "12px",
-              fontWeight: 400,
-              letterSpacing: "0.3em",
-              color: brand.textMuted,
-            }}
-          >
-            PORTFOLIO
-          </span>
-        </div>
-
-        {/* Main content */}
+        {/* Main content — vertically centered */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
             flex: 1,
             justifyContent: "center",
-            gap: "0px",
           }}
         >
           <span
             style={{
-              fontSize: "92px",
+              fontSize: "96px",
               fontWeight: 700,
               color: brand.text,
               lineHeight: 0.95,
@@ -106,7 +75,7 @@ export default async function Image() {
           </span>
           <span
             style={{
-              fontSize: "92px",
+              fontSize: "96px",
               fontWeight: 700,
               color: brand.text,
               lineHeight: 0.95,
@@ -116,27 +85,27 @@ export default async function Image() {
             Atanda
           </span>
 
-          {/* Accent line + subtitle */}
+          {/* Accent line + role */}
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "16px",
-              marginTop: "28px",
+              gap: "20px",
+              marginTop: "36px",
             }}
           >
             <div
               style={{
                 display: "flex",
-                width: "40px",
-                height: "2px",
+                width: "48px",
+                height: "3px",
                 backgroundColor: brand.accent,
               }}
             />
             <span
               style={{
-                fontSize: "22px",
-                fontWeight: 300,
+                fontSize: "36px",
+                fontWeight: 400,
                 color: brand.textSecondary,
               }}
             >
@@ -145,56 +114,18 @@ export default async function Image() {
           </div>
         </div>
 
-        {/* Bottom row: tech stack + twitter handle */}
+        {/* Twitter handle — bottom right, readable size */}
         <div
           style={{
             display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
+            justifyContent: "flex-end",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "6px",
-            }}
-          >
-            {techStack.map((tech, i) => (
-              <div
-                key={tech}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                }}
-              >
-                {i > 0 && (
-                  <span style={{ fontSize: "14px", color: brand.textMuted }}>
-                    ·
-                  </span>
-                )}
-                <span
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: 400,
-                    color: brand.textMuted,
-                    letterSpacing: "0.05em",
-                  }}
-                >
-                  {tech}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          {/* Twitter handle */}
           <span
             style={{
-              fontSize: "14px",
+              fontSize: "24px",
               fontWeight: 400,
               color: brand.textMuted,
-              letterSpacing: "0.02em",
             }}
           >
             @dejiXice

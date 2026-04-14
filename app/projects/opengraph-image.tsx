@@ -6,17 +6,8 @@ export const alt = "Projects - Ayodeji Atanda Portfolio";
 export const size = OG_SIZE;
 export const contentType = "image/png";
 
-const projectNames = [
-  "HypurScope",
-  "Afren.ai",
-  "StreamScapeX",
-  "Furnisphere",
-  "MetaSecure",
-];
-
 export default async function Image() {
   const fonts = await loadFonts();
-  const remaining = 11 - projectNames.length;
 
   return new ImageResponse(
     (
@@ -27,7 +18,7 @@ export default async function Image() {
           width: "100%",
           height: "100%",
           backgroundColor: brand.bg,
-          padding: "60px 80px",
+          padding: "70px 80px",
           fontFamily: "Outfit",
           position: "relative",
           overflow: "hidden",
@@ -45,7 +36,7 @@ export default async function Image() {
           }}
         />
 
-        {/* Decorative number */}
+        {/* Decorative project count */}
         <div
           style={{
             position: "absolute",
@@ -61,36 +52,7 @@ export default async function Image() {
           11
         </div>
 
-        {/* Label */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              width: "8px",
-              height: "8px",
-              borderRadius: "50%",
-              backgroundColor: brand.accent,
-            }}
-          />
-          <span
-            style={{
-              fontSize: "12px",
-              fontWeight: 400,
-              letterSpacing: "0.3em",
-              color: brand.textMuted,
-            }}
-          >
-            SELECTED WORK
-          </span>
-        </div>
-
-        {/* Main content */}
+        {/* Main content — vertically centered */}
         <div
           style={{
             display: "flex",
@@ -101,7 +63,7 @@ export default async function Image() {
         >
           <span
             style={{
-              fontSize: "92px",
+              fontSize: "96px",
               fontWeight: 700,
               color: brand.text,
               lineHeight: 0.95,
@@ -116,74 +78,28 @@ export default async function Image() {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "16px",
-              marginTop: "28px",
+              gap: "20px",
+              marginTop: "36px",
             }}
           >
             <div
               style={{
                 display: "flex",
-                width: "40px",
-                height: "2px",
+                width: "48px",
+                height: "3px",
                 backgroundColor: brand.accent,
               }}
             />
             <span
               style={{
-                fontSize: "22px",
-                fontWeight: 300,
+                fontSize: "32px",
+                fontWeight: 400,
                 color: brand.textSecondary,
               }}
             >
-              Things I&apos;ve built that kept me up at night
+              Selected Work by Ayodeji Atanda
             </span>
           </div>
-        </div>
-
-        {/* Bottom project names */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "6px",
-          }}
-        >
-          {projectNames.map((name, i) => (
-            <div
-              key={name}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "6px",
-              }}
-            >
-              {i > 0 && (
-                <span style={{ fontSize: "14px", color: brand.textMuted }}>
-                  ·
-                </span>
-              )}
-              <span
-                style={{
-                  fontSize: "14px",
-                  fontWeight: 400,
-                  color: brand.textMuted,
-                  letterSpacing: "0.02em",
-                }}
-              >
-                {name}
-              </span>
-            </div>
-          ))}
-          <span
-            style={{
-              fontSize: "14px",
-              fontWeight: 400,
-              color: brand.accent,
-              marginLeft: "6px",
-            }}
-          >
-            +{remaining} more
-          </span>
         </div>
       </div>
     ),
