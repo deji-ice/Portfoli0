@@ -1,146 +1,142 @@
-import React, { useState } from "react";
-import ToolIcon from "./ToolIcon";
-import { motion, AnimatePresence } from "framer-motion";
+"use client";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  AnimatePresence,
+} from "framer-motion";
 import { projects } from "@/data/data";
+import ProjectCard from "./ProjectCard";
 import Link from "next/link";
 import Image from "next/image";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.06, delayChildren: 0.2 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] },
+  },
+};
+
 const RecentProjects = () => {
   const latestProjects = projects.slice(0, 3);
-  const [expandedProject, setExpandedProject] = useState<string | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const toggleProject = (projectId: string) => {
-    setExpandedProject(expandedProject === projectId ? null : projectId);
+  // Cursor tracking for floating image preview
+  const cursorX = useMotionValue(-400);
+  const cursorY = useMotionValue(-400);
+  const springConfig = { damping: 25, stiffness: 220, mass: 0.5 };
+  const x = useSpring(cursorX, springConfig);
+  const y = useSpring(cursorY, springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    cursorX.set(e.clientX);
+    cursorY.set(e.clientY);
   };
+
+  const handleHoverStart = (index: number) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setHoveredIndex(index);
+  };
+
+  const handleHoverEnd = () => {
+    timeoutRef.current = setTimeout(() => setHoveredIndex(null), 60);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      className="space-y-8"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      variants={containerVariants}
+      onMouseMove={handleMouseMove}
     >
-      <h3 className="text-3xl text-center lg:text-start font-outfit text-gray-500 font-semibold px-5 tracking-wider">
-        Recent Projects
-      </h3>
+      {/* Section label */}
+      <motion.p
+        variants={itemVariants}
+        className="text-[11px] font-mono uppercase tracking-[0.35em] text-slate-500 mb-5"
+      >
+        Selected Work
+      </motion.p>
 
-      <div className="space-y-4 px-5">
+      {/* Heading */}
+      <motion.h2
+        variants={itemVariants}
+        className="font-clash font-bold text-3xl md:text-4xl text-slate-900 tracking-[-0.03em] leading-[1.05] mb-10 md:mb-14"
+      >
+        Things I&apos;ve built.
+      </motion.h2>
+
+      {/* Project list — reusing ProjectCard from projects page */}
+      <motion.div
+        variants={containerVariants}
+        className="border-t border-slate-400/30"
+      >
         {latestProjects.map((project, index) => (
-          <motion.div
-            key={project.id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="group cursor-pointer"
-            onClick={() => toggleProject(project.id)}
-          >
-            <div
-              className="flex items-center justify-between py-4 border-b border-gray-400 group-hover:border-gray-700 transition-colors duration-300"
-              role="button"
-              tabIndex={0}
-              aria-expanded={expandedProject === project.id}
-              aria-controls={`project-content-${project.id}`}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  toggleProject(project.id);
-                }
-              }}
-            >
-              <div className="flex items-center gap-4">
-                <span className="text-gray-400 font-mono text-sm">
-                  0{index + 1}
-                </span>
-                <h4
-                  className="text-lg font-medium text-gray-900 group-hover:text-gray-600 transition-colors duration-300"
-                  id={`project-title-${project.id}`}
-                >
-                  {project.projectName}
-                </h4>
-              </div>
-              <div
-                className={`text-gray-400 group-hover:text-gray-600 transition-all duration-300 ${
-                  expandedProject === project.id ? "rotate-90" : ""
-                }`}
-                aria-hidden="true"
-              >
-                →
-              </div>
-            </div>
-
-            <AnimatePresence>
-              {expandedProject === project.id && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{
-                    duration: 0.5,
-                    ease: [0.4, 0.0, 0.2, 1],
-                  }}
-                  className="overflow-hidden"
-                  id={`project-content-${project.id}`}
-                  role="region"
-                  aria-labelledby={`project-title-${project.id}`}
-                >
-                  <div className="pt-6 pb-4 space-y-4">
-                    {/* Project Image */}
-                    <div className=" w-full h-48 rounded-lg overflow-hidden bg-gray-100">
-                      <Image
-                        src={
-                          typeof project.projectImage === "string"
-                            ? project.projectImage
-                            : project.projectImage.src
-                        }
-                        width={500}
-                        height={300}
-                        alt={project.projectName}
-                        loading="lazy"
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-
-                    <p className="text-gray-600 text-sm leading-relaxed">
-                      {project.projectDescription}
-                    </p>
-
-                    <div className="flex flex-wrap gap-2">
-                      {project.tools.map((tool) => (
-                        <ToolIcon key={tool} tool={tool} />
-                      ))}
-                    </div>
-
-                    <div className="flex gap-4 pt-2">
-                      <a
-                        href={project.demoLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-900 hover:text-gray-600 text-sm font-medium transition-colors duration-300 underline underline-offset-4"
-                      >
-                        View Demo
-                      </a>
-                      {project.githubLink && (
-                        <a
-                          href={project.githubLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors duration-300 underline underline-offset-4"
-                        >
-                          GitHub
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+          <motion.div key={project.id} variants={itemVariants}>
+            <ProjectCard
+              project={project}
+              index={index}
+              isActive={hoveredIndex === index}
+              isAnyHovered={hoveredIndex !== null}
+              onHoverStart={() => handleHoverStart(index)}
+              onHoverEnd={handleHoverEnd}
+            />
           </motion.div>
         ))}
-      </div>
-      <button className="hover:bg-slate-800 hover:text-white transition-all duration-300 rounded-lg ml-2 px-2 py-1">
-        <Link href="/projects">View All Projects</Link>
-      </button>
+      </motion.div>
+
+      {/* View all link */}
+      <motion.div variants={itemVariants} className="mt-8">
+        <Link
+          href="/projects"
+          className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 hover:text-slate-900 underline underline-offset-4 decoration-slate-300 hover:decoration-slate-800 transition-colors duration-200"
+        >
+          View all projects
+        </Link>
+      </motion.div>
+
+      {/* Cursor-following image preview — desktop only */}
+      <AnimatePresence>
+        {hoveredIndex !== null && (
+          <motion.div
+            key={hoveredIndex}
+            className="fixed top-0 left-0 pointer-events-none z-50 hidden md:block"
+            style={{ x, y }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            <div className="relative w-[320px] h-[200px] translate-x-6 -translate-y-[75%] overflow-hidden">
+              <Image
+                src={latestProjects[hoveredIndex].projectImage as string}
+                alt=""
+                fill
+                className="object-cover"
+                sizes="320px"
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };

@@ -32,6 +32,7 @@ export interface LogoData {
 export type JobExperience = {
   occupation: string;
   companyName: string;
+  companyUrl?: string;
   dateStart: string;
   dateEnd: string;
   responsibilities: string[];

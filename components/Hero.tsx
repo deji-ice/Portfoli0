@@ -1,66 +1,129 @@
 "use client";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
 import { motion } from "framer-motion";
-import Button from "./Button";
+import Link from "next/link";
 import { memo } from "react";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08, delayChildren: 0.2 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] },
+  },
+};
 
 const Hero = memo(() => {
   const [text] = useTypewriter({
-    words: [
-      "Frontend Engineer.",
-      "Solidity Developer.",
-      // "Fullstack Web Developer.",
-      // "Graphic Designer.",
-    ],
+  words: [
+    "Leading frontend at Clona.",
+    "Crafting Web3 experiences.",
+    "Building fintech products.",
+    "Optimizing for performance.",
+  ],
     loop: true,
     delaySpeed: 3000,
   });
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="relative flex flex-col 
-        min-h-[calc(100vh-6rem)] xl:min-h-full justify-center max-w-7xl mx-auto
-        pt-24 md:pt-28 lg:pt-32"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+      className="relative flex flex-col min-h-[calc(100vh-6rem)] justify-center max-w-[1400px] mx-auto pt-24 md:pt-28"
     >
-      <div className="space-y-4 sm:space-y-5 md:space-y-6 px-6 md:px-16  lg:px-20">
-        <h4
-          className="text-sm sm:text-base md:text-lg lg:text-xl 
-          font-medium text-gray-600"
+      <div className="relative z-10 px-5 md:px-12 lg:px-20">
+        {/* Role label */}
+        <motion.p
+          variants={itemVariants}
+          className="text-[11px] font-mono uppercase tracking-[0.35em] text-slate-600 mb-6"
         >
-          Hi, the name is
-        </h4>
+          Frontend Engineer
+        </motion.p>
 
-        <h1
-          className="font-outfit font-bold text-4xl sm:text-5xl md:text-6xl 
-          lg:text-7xl xl:text-8xl tracking-tight"
+        {/* Name — massive Clash Display, scales up on xl to fill width */}
+        <motion.h1
+          variants={itemVariants}
+          className="font-clash font-bold text-5xl md:text-7xl lg:text-[6rem] xl:text-[8rem] text-slate-900 tracking-[-0.04em] leading-[0.92]"
         >
-          Ayodeji Atanda.
-        </h1>
+          Ayodeji
+          <br />
+          Atanda.
+        </motion.h1>
 
-        <div
-          className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl 
-          text-gray-500 h-[60px] sm:h-[72px] md:h-[84px]"
+        {/* Tagline */}
+        <motion.p
+          variants={itemVariants}
+          className="font-clash font-bold text-2xl md:text-3xl lg:text-4xl text-slate-800 tracking-[-0.02em] leading-[1.1] mt-6 2xl:mt-8"
         >
-          <h2 className="inline-flex items-center">
+          I build interfaces
+          <br className="hidden md:block" /> people remember.
+        </motion.p>
+
+        {/* Typewriter */}
+        <motion.div
+          variants={itemVariants}
+          className="mt-4 h-[32px] md:h-[36px]"
+        >
+          <span className="font-outfit font-light italic text-base md:text-lg text-slate-600">
             {text}
-            <Cursor cursorColor="#0077b5" />
-          </h2>
-        </div>
+            <Cursor cursorColor="#64748b" />
+          </span>
+        </motion.div>
 
-        <p className="text-base sm:text-lg md:text-xl lg:text-2xl max-w-3xl text-gray-600  leading-relaxed">
-          I’m a software engineer creating clean, responsive, and accessible web
-          experiences with React, Next.js, Tailwind CSS, and Web3. I build smart
-          contracts with Solidity, contribute to decentralized projects, and
-          enjoy mentoring new developers to make technology more usable and
-          inclusive for everyone.
-        </p>
+        {/* Availability — stacked on mobile, inline on md+ */}
+        <motion.div
+          variants={itemVariants}
+          className="mt-4 2xl:mt-6"
+        >
+          {/* Desktop: single line */}
+          <div className="hidden md:flex flex-row items-center gap-2.5">
+            <p className="text-[11px] font-mono tracking-[0.2em] uppercase text-slate-500 leading-none">
+              Engineer at Clona &amp; Gen Financial — Open to opportunities
+            </p>
+            <span className="relative flex h-2 w-2 shrink-0">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+            </span>
+          </div>
+          {/* Mobile: short and clean */}
+          <div className="flex md:hidden items-center gap-2">
+            <span className="relative flex h-2 w-2 shrink-0">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+            </span>
+            <p className="text-[11px] font-mono tracking-[0.15em] uppercase text-slate-500 leading-none">
+              Open to opportunities
+            </p>
+          </div>
+        </motion.div>
 
-        <div className="pt-6 lg:pt-0">
-          <Button title="Get In Touch" />
-        </div>
+        {/* CTA links */}
+        <motion.div
+          variants={itemVariants}
+          className="flex items-center gap-6 md:gap-8 mt-6 2xl:mt-8"
+        >
+          <Link
+            href="/projects"
+            className="text-sm font-medium text-slate-800 underline underline-offset-4 decoration-slate-400 hover:decoration-slate-800 transition-colors duration-200"
+          >
+            View my work
+          </Link>
+          <a
+            href="mailto:ayodejiatanda1@gmail.com"
+            className="text-sm font-medium text-slate-600 underline underline-offset-4 decoration-slate-400 hover:decoration-slate-700 hover:text-slate-800 transition-colors duration-200"
+          >
+            Get in touch
+          </a>
+        </motion.div>
       </div>
     </motion.div>
   );

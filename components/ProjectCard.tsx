@@ -23,7 +23,7 @@ const ProjectCard = ({
   return (
     <div
       className={`border-b border-slate-400/30 cursor-pointer transition-opacity duration-500 ease-out ${
-        isAnyHovered && !isActive ? "opacity-20" : "opacity-100"
+        isAnyHovered && !isActive ? "opacity-40" : "opacity-100"
       }`}
       onMouseEnter={onHoverStart}
       onMouseLeave={onHoverEnd}
@@ -48,21 +48,26 @@ const ProjectCard = ({
               </h3>
             </Link>
 
-            <svg
-              className={`w-4 h-4 md:w-5 md:h-5 shrink-0 mt-1.5 md:mt-3 transition-colors duration-300 ${
-                isActive ? "text-slate-700" : "text-slate-400"
-              }`}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={1.5}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M7 17L17 7M17 7H7M17 7v10"
-              />
-            </svg>
+            <div className="flex items-center gap-3 shrink-0 pt-1 md:pt-2.5">
+              <span className="text-[11px] md:text-xs font-mono tracking-wider text-slate-400 tabular-nums select-none">
+                {project.year}
+              </span>
+              <svg
+                className={`w-4 h-4 md:w-5 md:h-5 transition-colors duration-300 ${
+                  isActive ? "text-slate-700" : "text-slate-400"
+                }`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={1.5}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M7 17L17 7M17 7H7M17 7v10"
+                />
+              </svg>
+            </div>
           </div>
 
           {/* Description */}

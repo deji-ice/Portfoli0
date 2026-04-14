@@ -47,7 +47,7 @@ export const projects: Project[] = [
     projectDescription: `
   StreamScapeX is a fully functional streaming platform built for educational purposes using Next.js, TypeScript, Tailwind CSS, Framer Motion, shadcn/ui, and TMDB to deliver a smooth, responsive movie and TV experience. This project is strictly for learning and demonstration only and is not for commercial use, as it does not hold any rights to distribute copyrighted content.
       `,
-    demoLink: "https://www.streamscapex.live/",
+    demoLink: "https://stream.scapex.workers.dev/",
     githubLink: "https://github.com/deji-ice/streaming-app-next",
     tools: [
       "NextJS",
@@ -57,7 +57,7 @@ export const projects: Project[] = [
       "TMDB",
       "shadcnUi",
     ],
-    year: 2024,
+    year: 2025,
   },
   {
     id: crypto.randomUUID(),
@@ -72,7 +72,7 @@ export const projects: Project[] = [
       "TailwindCSS",
       "Framer Motion",
     ],
-    year: 2024,
+    year: 2025,
   },
   {
     id: crypto.randomUUID(),
@@ -88,7 +88,8 @@ export const projects: Project[] = [
       "Framer Motion",
       "Cloudinary",
       "Paystack"
-    ]
+    ],
+    year: 2024,
   },
   {
     id: crypto.randomUUID(),
@@ -104,7 +105,8 @@ export const projects: Project[] = [
       "Axios",
       "tailwindCSS",
       "Ethers.js",
-    ]
+    ],
+    year: 2024,
   },
   {
     id: crypto.randomUUID(),
@@ -122,6 +124,7 @@ export const projects: Project[] = [
       "Framer Motion",
       "Cloudinary",
     ],
+    year: 2024,
   },
   {
     id: crypto.randomUUID(),
@@ -140,6 +143,7 @@ export const projects: Project[] = [
       "SEO",
       "Cloudinary",
     ],
+    year: 2023,
   },
   {
     id: crypto.randomUUID(),
@@ -156,6 +160,7 @@ export const projects: Project[] = [
       "Unsplash",
       "Cloudinary",
     ],
+    year: 2023,
   },
   {
     id: crypto.randomUUID(),
@@ -170,6 +175,7 @@ export const projects: Project[] = [
       "Sanity",
       "TailwindCSS",
     ],
+    year: 2023,
   },
   {
     id: crypto.randomUUID(),
@@ -178,7 +184,8 @@ export const projects: Project[] = [
     projectDescription: "Africash is a fintech landing page built with React, Tailwind CSS, and Framer Motion. The landing page is designed to promote the Africash financial platform with a modern and responsive user interface. Features include easy navigation, smooth animations, and informative sections highlighting the platform's key benefits.",
     demoLink: "https://africash.netlify.app/",
     githubLink: "https://github.com/deji-ice/Africash",
-    tools: ["React", "TailwindCSS", "Framer Motion",]
+    tools: ["React", "TailwindCSS", "Framer Motion",],
+    year: 2022,
   },
 ];
 
@@ -243,62 +250,71 @@ export const projects: Project[] = [
 
 export const experiences: JobExperience[] = [
   {
+    occupation: "Lead Frontend Engineer",
+    companyName: "Clona",
+    companyUrl: "https://clona.trade",
+    dateStart: "11/2025",
+    dateEnd: "Present",
+    responsibilities: [
+      `Leading frontend development for a copy trading platform built on HyperLiquid, architecting the UI with React, Next.js, TypeScript, and Tailwind CSS.`,
+      `Building real-time trading interfaces and portfolio tracking features for DeFi users.`,
+    ],
+  },
+  {
     occupation: "Frontend Engineer",
-    companyName: "GEN",
+    companyName: "Gen Financial",
+    companyUrl: "https://gen.financial/",
     dateStart: "10/2025",
     dateEnd: "Present",
     responsibilities: [
-      `Contributed to developing the Welsly investment dashboard (200+ active users) and Wyrr merchant app, implementing features for portfolio management, stock tracking, and merchant operations while upgrading the dashboard from V1 to V2 with 30% performance improvement.`,
-      `Developed responsive marketing websites for 3 flagship products (Welsly, Gen Financial, Wyrr) using web standards, improving page load performance by 35% and enhancing SEO visibility.`,
-      `Collaborated with cross-functional teams in agile sprints, working closely with product designers and engineers to deliver features and optimize UI/UX implementation.`,
-      `Built 25+ reusable React components aligned with the design system, reducing feature development time by 40% and ensuring UI consistency across applications.`,
+      `Contributing to the Vantar investment dashboard (200+ users) and Wyrr merchant app — portfolio management, stock tracking, and merchant operations with a 30% performance uplift in the V2 upgrade.`,
+      `Built responsive marketing sites for 3 products (Vantar, Gen Financial, Wyrr), improving page load by 35% and SEO visibility.`,
+      `Created 25+ reusable React components aligned with the design system, cutting feature development time by 40%.`,
     ],
   },
   {
     occupation: "Frontend Engineer",
     companyName: "Afren.ai",
+    companyUrl: "https://afren.ai",
     dateStart: "04/2025",
     dateEnd: "08/2025",
     responsibilities: [
-      `Integrated AI-driven matchmaking features into the frontend platform, improving recommendation accuracy and enhancing customer satisfaction.`,
-      `Implemented secure authentication systems and protected route logic to ensure user privacy and platform security.`,
-      `Developed and maintained responsive, high-performance user interfaces for Afren.ai's web assets, including the landing page, blog, and core frontend platform, driving user engagement and brand consistency.`,
-      `Collaborated closely with backend engineers and UI/UX designers to ensure seamless integration and consistency across the product experience.`,
+      `Integrated AI-driven matchmaking features and built secure authentication with protected routing.`,
+      `Developed responsive interfaces for the landing page, blog, and core platform, driving engagement and brand consistency.`,
     ],
   },
   {
-    occupation: "Fullstack Javascript Instructor",
-    companyName: "GoMyCode",
+    occupation: "Software Engineering Instructor",
+    companyName: "GOMYCODE",
+    companyUrl: "https://gomycode.com",
     dateStart: "09/2023",
     dateEnd: "07/2025",
     responsibilities: [
-      `Developed engaging coding exercises using React, TypeScript, Node.js, and REST APIs that helped students improve their full-stack skills and boosted performance by 30%.`,
-      `Implemented industry best practices including Agile methodology and peer code reviews, creating a collaborative learning environment that increased project success rates by 40%.`,
-      `Integrated practical industry standards such as Git version control and test-driven development, producing graduates with demonstrable skills in modern development workflows.`,
-      `Led workshops on responsive design with CSS Grid, Flexbox, and Tailwind CSS, driving a 50% improvement in frontend competency and enabling students to deploy professional interfaces in 4 weeks.`,
+      `Built coding exercises in React, TypeScript, Node.js, and REST APIs — boosting student performance by 30%.`,
+      `Led workshops on responsive design (CSS Grid, Flexbox, Tailwind CSS), driving 50% improvement in frontend competency.`,
+      `Integrated Git, TDD, and Agile practices into the curriculum, producing job-ready graduates.`,
     ],
   },
   {
     occupation: "Frontend Developer",
-    companyName: "Sabiroad",
+    companyName: "Sabiroad Logistics International",
+    companyUrl: "https://sabiroad.com/",
     dateStart: "04/2022",
     dateEnd: "04/2023",
     responsibilities: [
-      "Collaborated with a team of three to build an internal admin portal for the operations team, enabling payment fixes, user role management, and system configuration — which improved operational efficiency by 20%.",
-      "Built a simplified frontend interface for testing and triggering backend actions, allowing non-technical team members to interact with endpoints without needing Postman.",
-      "Worked closely with backend engineers to integrate APIs and services, reducing data retrieval time by 30% and ensuring smooth frontend-backend communication.",
-      "Partnered with UI/UX designers to enhance usability and visual consistency, leading to a 25% drop in bounce rate and a 15% improvement in user satisfaction among internal users.",
+      `Built an internal admin portal with a team of three — payment fixes, user role management, and system config, improving ops efficiency by 20%.`,
+      `Integrated APIs with backend engineers, reducing data retrieval time by 30%.`,
+      `Partnered with UI/UX designers to cut bounce rate by 25% and lift user satisfaction by 15%.`,
     ],
   },
-  {
-    occupation: "Software Intern",
-    companyName: "First Bank PLC",
-    dateStart: "01/2020",
-    dateEnd: "06/2020",
-    responsibilities: [
-      `Collaborated with a team of five developers to create an insurance online application using ASP.NET, resulting in a 20% increase in customer acquisition and a 15% improvement in overall application efficiency.`,
-      `Learned C# and the ASP.NET framework and applied them in two projects, contributing to a 30% reduction in development time and a 25% increase in code quality.`,
-      `Developed a Subscription Video App using ASP.NET as a self skill-building project, enhancing my proficiency in C# and the ASP.NET framework while gaining hands-on experience in application development and database management.`,
-    ],
-  },
+  // {
+  //   occupation: "Software Intern",
+  //   companyName: "First Bank PLC",
+  //   dateStart: "01/2020",
+  //   dateEnd: "06/2020",
+  //   responsibilities: [
+  //     `Collaborated with five developers to build an insurance application using ASP.NET, increasing customer acquisition by 20%.`,
+  //     `Built a Subscription Video App in C#/ASP.NET as a self-directed project for hands-on experience in app development and database management.`,
+  //   ],
+  // },
 ];

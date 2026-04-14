@@ -67,7 +67,7 @@ const ProjectsPage = () => {
 
   return (
     <motion.div
-      className="py-24 px-5 md:px-12 lg:px-8 min-h-screen max-w-[1400px] mx-auto"
+      className="relative z-10 py-24 px-5 md:px-12 lg:px-8 min-h-screen max-w-[1400px] mx-auto"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
