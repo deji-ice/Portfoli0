@@ -24,7 +24,7 @@ export default async function Image() {
           overflow: "hidden",
         }}
       >
-        {/* Emerald accent bar at top */}
+        {/* Emerald accent bar at top */} 
         <div
           style={{
             position: "absolute",
