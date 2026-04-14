@@ -45,4 +45,5 @@ export type Project = {
   demoLink: string;
   githubLink?: string;
   tools: string[];
+  year: number;
 };

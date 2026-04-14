@@ -17,7 +17,8 @@ export const projects: Project[] = [
       "Framer Motion",
       "ReChart",
       "shadcnUi",
-    ]
+    ],
+    year: 2025,
   },
   {
     id: crypto.randomUUID(),
@@ -36,7 +37,8 @@ export const projects: Project[] = [
       "Axios",
       "postman"
 
-    ]
+    ],
+    year: 2025,
   },
   {
     id: crypto.randomUUID(),
@@ -54,7 +56,8 @@ export const projects: Project[] = [
       "Framer Motion",
       "TMDB",
       "shadcnUi",
-    ]
+    ],
+    year: 2024,
   },
   {
     id: crypto.randomUUID(),
@@ -68,7 +71,8 @@ export const projects: Project[] = [
       "TypeScript",
       "TailwindCSS",
       "Framer Motion",
-    ]
+    ],
+    year: 2024,
   },
   {
     id: crypto.randomUUID(),
