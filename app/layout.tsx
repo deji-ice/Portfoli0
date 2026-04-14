@@ -38,6 +38,7 @@ const NowPlaying = dynamic(() => import("@/components/NowPlaying"), {
 });
 
 export const metadata = {
+  metadataBase: new URL("https://ayodejiatanda.vercel.app"),
   viewport: { width: "device-width", initialScale: 1 },
   title: "Ayodeji Atanda - Software Engineer Portfolio",
   verification: {
@@ -93,11 +94,19 @@ export const metadata = {
   icons: {
     icon: "/favicon-32x32.png",
   },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    title: "Ayodeji Atanda - Software Engineer Portfolio",
+    description:
+      "Software Engineer creating professional, scalable, and SEO-friendly websites with innovative web and blockchain solutions.",
+    siteName: "Ayodeji Atanda",
+  },
   twitter: {
     card: "summary_large_image",
     title: "Ayodeji Atanda - Software Engineer Portfolio",
     description:
-      "Ayodeji Atanda - Software Engineer Portfolio: Creating professional, scalable, and SEO-friendly websites that establish a robust online presence for small businesses through innovative web and blockchain solutions.",
+      "Software Engineer creating professional, scalable, and SEO-friendly websites with innovative web and blockchain solutions.",
     creator: "@dejiXice",
   },
 };
