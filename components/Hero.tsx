@@ -68,7 +68,7 @@ const Hero = memo(() => {
           <br className="hidden md:block" /> people remember.
         </motion.p>
 
-        {/* Typewriter */}
+        {/* Typewriter
         <motion.div
           variants={itemVariants}
           className="mt-4 h-[32px] md:h-[36px]"
@@ -77,7 +77,7 @@ const Hero = memo(() => {
             {text}
             <Cursor cursorColor="#64748b" />
           </span>
-        </motion.div>
+        </motion.div> */}
 
         {/* Availability — stacked on mobile, inline on md+ */}
         <motion.div
