@@ -2,27 +2,23 @@ import { SpotifyData, SpotifyNowPlayingResponse } from '@/types/types';
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const {
-  SPOTIFY_CLIENT_ID: client_id,
-  SPOTIFY_CLIENT_SECRET: client_secret,
-  SPOTIFY_REFRESH_TOKEN: refresh_token,
-} = process.env;
-
-const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
 const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing`;
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 
-// In-memory cache for the access token
 let cachedToken: string | null = null;
 let cachedTokenExpiresAt: number = 0;
 
 const getAccessToken = async () => {
   const now = Date.now();
 
-  // Return cached token if it's still valid (buffer of 60 seconds)
   if (cachedToken && now < cachedTokenExpiresAt - 60000) {
     return cachedToken;
   }
+
+  const client_id = process.env.SPOTIFY_CLIENT_ID;
+  const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
+  const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
+  const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
 
   try {
     const response = await axios.post<{ access_token: string; expires_in: number }>(
@@ -40,7 +36,6 @@ const getAccessToken = async () => {
     );
 
     cachedToken = response.data.access_token;
-    // expires_in is usually 3600 seconds
     cachedTokenExpiresAt = now + response.data.expires_in * 1000;
 
     return cachedToken;
@@ -69,7 +64,7 @@ export default async function spotify(
     return res.status(405).json({ isPlaying: false, error: 'Method not allowed' } as any);
   }
 
-  if (!client_id || !client_secret || !refresh_token) {
+  if (!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET || !process.env.SPOTIFY_REFRESH_TOKEN) {
     console.error('Missing Spotify environment variables');
     return res.status(500).json({ isPlaying: false, error: 'Missing configuration' } as any);
   }
