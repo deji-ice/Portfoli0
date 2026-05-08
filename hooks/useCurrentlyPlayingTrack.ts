@@ -19,17 +19,25 @@ const fetchCurrentlyPlaying = async (): Promise<SpotifyNowPlayingResponse> => {
 };
 
 export const useCurrentlyPlayingTrack = (
-  pollingInterval: number = 5000,
-  retryCount: number = 3
+  pollingInterval: number = 60000,
+  retryCount: number = 2,
+  enabled: boolean = true
 ) => {
-  // Enforce minimum polling interval of 3 seconds
-  const interval = Math.max(pollingInterval, 3000);
+  const activeInterval = Math.max(pollingInterval, 30000);
+  const idleInterval = 5 * 60 * 1000;
 
   return useQuery({
     queryKey: ['currently-playing'],
     queryFn: fetchCurrentlyPlaying,
-    refetchInterval: interval,
-    staleTime: 1000 * 30, // 30 seconds cache
+    refetchInterval: (query) => {
+      if (!enabled) return false;
+      return query.state.data?.isPlaying ? activeInterval : idleInterval;
+    },
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    staleTime: activeInterval,
+    enabled,
     retry: retryCount,
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
   });

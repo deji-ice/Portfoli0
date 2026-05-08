@@ -7,9 +7,24 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import ErrorBoundary from './ErrorBoundary';
 
+const useIsDesktop = () => {
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 768px)');
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+  return isDesktop;
+};
+
 const NowPlayingContent = () => {
-  const { data, isLoading, isError } = useCurrentlyPlayingTrack(5000);
+  const isDesktop = useIsDesktop();
+  const { data, isLoading, isError } = useCurrentlyPlayingTrack(60000, 2, isDesktop);
   const [isExpanded, setIsExpanded] = useState(false);
+
+  if (!isDesktop) return null;
 
   // If loading initially, show a skeleton or nothing (user requested skeleton)
   if (isLoading) {
