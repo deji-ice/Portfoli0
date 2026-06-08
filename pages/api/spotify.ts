@@ -75,7 +75,7 @@ export default async function spotify(
     // Set cache headers
     res.setHeader(
       'Cache-Control',
-      'public, s-maxage=60, stale-while-revalidate=300'
+      'public, s-maxage=60, stale-while-revalidate=30'
     );
 
     if (

@@ -21,7 +21,7 @@ const useIsDesktop = () => {
 
 const NowPlayingContent = () => {
   const isDesktop = useIsDesktop();
-  const { data, isLoading, isError } = useCurrentlyPlayingTrack(60000, 2, isDesktop);
+  const { data, isLoading, isError } = useCurrentlyPlayingTrack(90000, 2, isDesktop);
   const [isExpanded, setIsExpanded] = useState(false);
 
   if (!isDesktop) return null;
