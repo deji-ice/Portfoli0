@@ -69,6 +69,9 @@ export default async function spotify(
     return res.status(500).json({ isPlaying: false, error: 'Missing configuration' } as any);
   }
 
+  // temporarily disabled
+  return res.status(200).json({ isPlaying: false });
+
   try {
     const response = await getNowPlaying();
 
